@@ -1,0 +1,20 @@
+{
+  "name": "rtm-text-share",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raisess/rtm-text-share.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raisess/rtm-text-share/issues"
+  },
+  "homepage": "https://github.com/Raisess/rtm-text-share#readme"
+}
