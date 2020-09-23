@@ -3,9 +3,10 @@ import http, { Server, createServer } from 'http';
 import cors from 'cors';
 
 import { ws } from './ws';
-
 // config
 import { PORT } from './config';
+// routes
+import infoRoute from './routes/info.route';
 
 // server setup
 const app: Application = express();
@@ -21,6 +22,8 @@ app.get('/', (req: Request, res: Response) => {
 		requested_at: new Date().toLocaleString()
 	});
 });
+
+app.use('/info', infoRoute);
 
 // starts ws server
 ws(io);
