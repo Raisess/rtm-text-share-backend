@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+		"start-client": "cd ./rtm-text-share-frontend/ | npm run start",
+		"build-client": "cd ./rtm-text-share-frontend/ | npm run build",
+		"start-server": "cd ./rtm-text-share-backend/ | npm run start",
+		"compile-server": "cd ./rtm-text-share-backend/ | npm run compile",
     "test": "jest"
   },
   "repository": {
@@ -11,7 +15,7 @@
     "url": "git+https://github.com/Raisess/rtm-text-share.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Raisess",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Raisess/rtm-text-share/issues"
