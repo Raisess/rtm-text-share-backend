@@ -11,7 +11,20 @@ export const ws = (io: SocketIO.Server): void => {
 		console.log(socket.id, 'has been connected to server');
 
 		socket.on('create_user', (userData: IUser) => {
-			users.push(createUser(socket.id, userData));
+			try {
+				users.push(createUser(socket.id, userData));
+
+				socket.emit('create_user_response', {
+					log:     'user been created',
+					success: true
+				});
+			} catch (e) {
+				socket.emit('create_user_response', {
+					log:     'user not created',
+					success: false,
+					error:   e.message
+				});
+			}
 		});
 
 		socket.on('disconnect', () => console.log(socket.id, 'has been disconnected from server'));
