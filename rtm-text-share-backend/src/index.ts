@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import http, { Server, createServer } from 'http';
 import cors from 'cors';
 
-import ws from './ws';
+import { ws } from './ws';
 
 // config
 import { PORT } from './config';

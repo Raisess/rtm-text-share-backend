@@ -2,7 +2,7 @@ import { ISession } from './interfaces/Session';
 
 let sessions: Array<ISession> = [];
 
-const ws = (io: SocketIO.Server): void => {
+export const ws = (io: SocketIO.Server): void => {
 	io.on('connection', (socket: any) => {
 		console.log(socket.id, 'has been connected to server');
 
@@ -10,5 +10,5 @@ const ws = (io: SocketIO.Server): void => {
 	});
 }
 
-export default ws;
+export const getSessions = (): Array<ISession> => sessions;
 
