@@ -30,7 +30,18 @@ export const ws = (io: SocketIO.Server): void => {
 			}
 		});
 
-		socket.on('disconnect', () => console.log(socket.id, 'has been disconnected from server'));
+		// quit event
+		socket.on('disconnect', () => {
+			// delete user from storage
+			for (let i = 0; i < users.length; i++) {
+				if (users[i]) {
+					if (socket.id == users[i].id) delete users[i];
+				}
+			}
+
+			console.log(socket.id, 'has been disconnected from server');
+			return;
+		});
 	});
 }
 
