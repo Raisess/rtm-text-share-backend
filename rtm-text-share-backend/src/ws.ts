@@ -18,7 +18,7 @@ export const ws = (io: SocketIO.Server): void => {
 				users.push(user);
 
 				return socket.emit('create_user_response', {
-					log:     'user been created',
+					log:     'user created',
 					success: true
 				});
 			} catch (e) {
@@ -35,7 +35,7 @@ export const ws = (io: SocketIO.Server): void => {
 			// delete user from storage
 			for (let i = 0; i < users.length; i++) {
 				if (users[i]) {
-					if (socket.id == users[i].id) delete users[i];
+					if (socket.id === users[i].id) delete users[i];
 				}
 			}
 
