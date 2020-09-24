@@ -26,12 +26,12 @@ userInfoRoute.get('/get/users', (req: Request, res: Response) => {
 	}
 });
 
-userInfoRoute.get('/get/users/:username', (req: Request, res: Response) => {
+userInfoRoute.get('/get/users/:usernameOrId', (req: Request, res: Response) => {
 	try {
 		const users: Array<IUser> = getUsers();
 
 		for (let user of users) {
-			if (user.username === req.params.username) {
+			if (user.username === req.params.usernameOrId || user.id === req.params.usernameOrId) {
 				return res.status(200).json({
 					requestedAt: new Date().toLocaleString(),
 					log:         'get user success',
