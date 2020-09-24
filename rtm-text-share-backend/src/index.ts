@@ -6,7 +6,7 @@ import { ws } from './ws';
 // config
 import { PORT } from './config';
 // routes
-import infoRoute from './routes/info.route';
+import userInfoRoute from './routes/userInfo.route';
 
 // server setup
 const app: Application = express();
@@ -23,7 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 	});
 });
 
-app.use('/info', infoRoute);
+app.use('/info', userInfoRoute);
 
 // starts ws server
 ws(io);
