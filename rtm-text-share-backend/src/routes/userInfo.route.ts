@@ -43,7 +43,7 @@ userInfoRoute.get('/get/users/:usernameOrId', (req: Request, res: Response) => {
 
 		return res.status(404).json({
 			requestedAt: new Date().toLocaleString(),
-			log:         `user ${req.params.username} not found`,
+			log:         `user ${req.params.usernameOrId} not found`,
 			success:     false
 		});
 	} catch (e) {
