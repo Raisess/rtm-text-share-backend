@@ -1,6 +1,6 @@
 import { ISession } from '../interfaces/Session';
 
-export const createSession = (id: string, sessionId: '', session: ISession): ISession => {
+export const createSession = (id: string, sessionId: string, session: ISession): ISession => {
 	const { createdBy } = session;
 
 	return {
