@@ -2,6 +2,7 @@ import { IUser } from './interfaces/User';
 import { ISession } from './interfaces/Session';
 
 import { createUser } from './entities/user.entitie';
+import { createSession } from './entities/session.entitie';
 
 // data storage
 let users:    Array<IUser>    = [];
@@ -19,11 +20,33 @@ export const ws = (io: SocketIO.Server): void => {
 
 				return socket.emit('create_user_response', {
 					log:     'user created',
-					success: true
+					success: true,
+					userId:  socket.id
 				});
 			} catch (e) {
 				return socket.emit('create_user_response', {
 					log:     'user not created',
+					success: false,
+					error:   e.message
+				});
+			}
+		});
+
+		// create session event
+		socket.on('create_session', (sessionData: ISession) => {
+			try {
+				const sessionId: string   = 'sessionIdHere!'; 
+				const session:   ISession = createSession(socket.id, sessionId, sessionData);
+				sessions.push(session);
+
+				return socket.emit('create_session_response', {
+					log:        'session created',
+					success:    true,
+					sessionId:  sessionId
+				});
+			} catch (e) {
+				return socket.emit('create_session_response', {
+					log:     'session not created',
 					success: false,
 					error:   e.message
 				});
