@@ -1,5 +1,6 @@
 /rtm-text-share-backend/node_modules
 /rtm-text-share-backend/build
+/rtm-text-share-backend/.env
 
 /rtm-text-share-frontend/node_modules
 /rtm-text-share-frontend/build

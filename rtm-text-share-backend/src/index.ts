@@ -7,6 +7,7 @@ import { ws } from './ws';
 import { PORT } from './config';
 // routes
 import userInfoRoute from './routes/userInfo.route';
+import sessionInfoRoute from './routes/sessionInfo.route';
 
 // server setup
 const app: Application = express();
@@ -23,7 +24,8 @@ app.get('/', (req: Request, res: Response) => {
 	});
 });
 
-app.use('/info', userInfoRoute);
+app.use('/users', userInfoRoute);
+app.use('/sessions', sessionInfoRoute);
 
 // starts ws server
 ws(io);

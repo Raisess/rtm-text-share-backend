@@ -5,7 +5,7 @@ import { getUsers } from '../ws';
 
 const userInfoRoute: Router = Router();
 
-userInfoRoute.get('/get/users', (req: Request, res: Response) => {
+userInfoRoute.get('/get', (req: Request, res: Response) => {
 	try {
 		const users: Array<IUser> = getUsers();
 
@@ -26,7 +26,7 @@ userInfoRoute.get('/get/users', (req: Request, res: Response) => {
 	}
 });
 
-userInfoRoute.get('/get/users/:usernameOrId', (req: Request, res: Response) => {
+userInfoRoute.get('/get/:usernameOrId', (req: Request, res: Response) => {
 	try {
 		const users: Array<IUser> = getUsers();
 
