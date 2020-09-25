@@ -35,10 +35,10 @@ export const ws = (io: SocketIO.Server): void => {
 		});
 
 		// create session event
-		socket.on('create_session', () => {
+		socket.on('create_session', (sessionData: ISession) => {
 			try {
 				const sessionId: string   = uuidv4(); 
-				const session:   ISession = createSession(socket.id, sessionId);
+				const session:   ISession = createSession(socket.id, sessionId, sessionData);
 				sessions.push(session);
 
 				return socket.emit('create_session_response', {

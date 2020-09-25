@@ -1,6 +1,9 @@
+import sha256 from 'sha256';
 import { ISession } from '../interfaces/Session';
 
-export const createSession = (id: string, sessionId: string): ISession => {
+export const createSession = (id: string, sessionId: string, session: ISession): ISession => {
+	const { password } = session;
+
 	return {
 		id:         sessionId,
 		createdAt:  new Date().toLocaleString(),
@@ -8,7 +11,8 @@ export const createSession = (id: string, sessionId: string): ISession => {
 		online:     true,
 		createdBy:  id,
 		party:      [],
-		content:    ''
+		content:    '',
+		password:   password ? sha256(password + process.env.PASS_ALT) : ''
 	};
 }
 
