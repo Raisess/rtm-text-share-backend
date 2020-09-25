@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import http, { Server, createServer } from 'http';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 import { ws } from './ws';
 // config
@@ -15,6 +16,7 @@ const server: Server = createServer(app);
 // ws setup
 const io: SocketIO.Server = require('socket.io')(server);
 
+dotenv.config();
 app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
