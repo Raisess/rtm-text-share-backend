@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { IUser } from './interfaces/User';
 import { ISession } from './interfaces/Session';
 
@@ -33,10 +35,10 @@ export const ws = (io: SocketIO.Server): void => {
 		});
 
 		// create session event
-		socket.on('create_session', (sessionData: ISession) => {
+		socket.on('create_session', () => {
 			try {
-				const sessionId: string   = 'sessionIdHere!'; 
-				const session:   ISession = createSession(socket.id, sessionId, sessionData);
+				const sessionId: string   = uuidv4(); 
+				const session:   ISession = createSession(socket.id, sessionId);
 				sessions.push(session);
 
 				return socket.emit('create_session_response', {

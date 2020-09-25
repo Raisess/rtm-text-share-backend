@@ -1,8 +1,6 @@
 import { ISession } from '../interfaces/Session';
 
-export const createSession = (id: string, sessionId: string, session: ISession): ISession => {
-	const { createdBy } = session;
-
+export const createSession = (id: string, sessionId: string): ISession => {
 	return {
 		id:         sessionId,
 		createdAt:  new Date().toLocaleString(),
@@ -13,6 +11,9 @@ export const createSession = (id: string, sessionId: string, session: ISession):
 		content:    ''
 	};
 }
+
+// TODO
+export const enterSession = (sessionId: string, userId: string): boolean => true;
 
 // TODO
 export const finishSession = (): void => {}
