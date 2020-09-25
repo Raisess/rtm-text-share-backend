@@ -1,9 +1,13 @@
 import { Router, Request, Response } from 'express';
 
+import { validateMasterKey } from '../middlewares/validateMasterKey';
+
 import { ISession } from '../interfaces/Session';
 import { getSessions } from '../ws';
 
 const sessionInfoRoute: Router = Router();
+
+sessionInfoRoute.use(validateMasterKey);
 
 sessionInfoRoute.get('/get', (req: Request, res: Response) => {
 	try {

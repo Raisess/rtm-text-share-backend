@@ -1,9 +1,13 @@
 import { Router, Request, Response } from 'express';
 
+import { validateMasterKey } from '../middlewares/validateMasterKey';
+
 import { IUser } from '../interfaces/User';
 import { getUsers } from '../ws';
 
 const userInfoRoute: Router = Router();
+
+userInfoRoute.use(validateMasterKey);
 
 userInfoRoute.get('/get', (req: Request, res: Response) => {
 	try {
