@@ -16,43 +16,30 @@ export const ws = (io: SocketIO.Server): void => {
 
 		// create user event
 		socket.on('create_user', (userData: IUser) => {
-			try {
-				const user: IUser = createUser(socket.id, userData);
-				users.push(user);
+			const user: IUser = createUser(socket.id, userData);
+			users.push(user);
 
-				return socket.emit('create_user_response', {
-					log:     'user created',
-					success: true,
-					userId:  socket.id
-				});
-			} catch (e) {
-				return socket.emit('create_user_response', {
-					log:     'user not created',
-					success: false,
-					error:   e.message
-				});
-			}
+			return socket.emit('create_user_response', {
+				log:     'user created',
+				userId:  socket.id
+			});
 		});
 
 		// create session event
 		socket.on('create_session', (sessionData: ISession) => {
-			try {
-				const sessionId: string   = uuidv4(); 
-				const session:   ISession = createSession(socket.id, sessionId, sessionData);
-				sessions.push(session);
+			const sessionId: string   = uuidv4(); 
+			const session:   ISession = createSession(socket.id, sessionId, sessionData);
+			sessions.push(session);
 
-				return socket.emit('create_session_response', {
-					log:        'session created',
-					success:    true,
-					sessionId:  sessionId
-				});
-			} catch (e) {
-				return socket.emit('create_session_response', {
-					log:     'session not created',
-					success: false,
-					error:   e.message
-				});
-			}
+			return socket.emit('create_session_response', {
+				log:        'session created',
+				sessionId:  sessionId
+			});
+		});
+
+		// enter on session event
+		socket.on('enter_session', (sessionId: string) => {
+
 		});
 
 		// quit event
