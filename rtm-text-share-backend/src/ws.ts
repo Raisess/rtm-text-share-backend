@@ -48,7 +48,9 @@ export const ws = (io: SocketIO.Server): void => {
 
 			if (canEnterSession[0] === 1) {
 				sessions[canEnterSession[1]].party.push(users[canEnterSession[2]]);
-				users[canEnterSession[2]].onSession = sessionId;
+
+				users[canEnterSession[2]].onSession            = sessionId;
+				users[canEnterSession[2]].lastSessionEnterTime = new Date().toLocaleString();
 
 				socket.join(sessionId);
 

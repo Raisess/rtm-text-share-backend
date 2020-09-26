@@ -7,14 +7,15 @@ export const createSession = (id: string, sessionId: string, session: ISession):
 	const { password } = session;
 
 	return {
-		id:         sessionId,
-		createdAt:  new Date().toLocaleString(),
-		finishedAt: undefined,
-		online:     true,
-		createdBy:  id,
-		party:      [],
-		content:    '',
-		password:   password ? sha256(password + process.env.PASS_ALT) : ''
+		id:             sessionId,
+		createdAt:      new Date().toLocaleString(),
+		finishedAt:     undefined,
+		online:         true,
+		createdBy:      id,
+		party:          [],
+		content:        '',
+		lastUpdateTime: '',
+		password:       password ? sha256(password + process.env.PASS_ALT) : ''
 	};
 }
 

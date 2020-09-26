@@ -1,7 +1,8 @@
 export interface IUser {
-	id:         string;
-	createdAt?: string;
-	username:   string;
-	onSession:  string;
+	id:                    string;
+	createdAt?:            string;
+	lastSessionEnterTime?: string;
+	username:              string;
+	onSession:             string;
 }
 
