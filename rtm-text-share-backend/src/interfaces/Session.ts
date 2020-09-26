@@ -11,3 +11,8 @@ export interface ISession {
 	password?:   string;
 }
 
+export interface ISessionEnter {
+	sessionId: string;
+	password?: string;
+}
+

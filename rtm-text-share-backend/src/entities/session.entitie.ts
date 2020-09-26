@@ -18,12 +18,20 @@ export const createSession = (id: string, sessionId: string, session: ISession):
 	};
 }
 
-export const enterSession = (sessionId: string, userId: string, sessions: Array<ISession>, users: Array<IUser>): Array<number> => {
+export const enterSession = (sessionId: string, userId: string, password: string | undefined, sessions: Array<ISession>, users: Array<IUser>): Array<number> => {
 	for (let i = 0; i < sessions.length; i++) {
 		if (sessionId === sessions[i].id) {
 			for (let j = 0; j < users.length; j++) {
 				if (userId === users[j].id) {
-					return [1, i, j];
+					if (sessions[i].password !== '' && sessions[i].password !== undefined) {
+						if (sessions[i].password === (password ? sha256(password + process.env.PASS_ALT) : '')) {
+							return [1, i, j];
+						} else {
+							return [0, -1, -1];
+						}
+					} else {
+						return [1, i, j];
+					}
 				}
 			}
 		}

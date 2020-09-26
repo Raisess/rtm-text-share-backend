@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { IUser } from './interfaces/User';
-import { ISession } from './interfaces/Session';
+import { ISession, ISessionEnter } from './interfaces/Session';
 
 import { createUser } from './entities/user.entitie';
 import { createSession, enterSession } from './entities/session.entitie';
@@ -38,8 +38,13 @@ export const ws = (io: SocketIO.Server): void => {
 		});
 
 		// enter on session event
-		socket.on('enter_session', (sessionId: string) => {
-			const canEnterSession: Array<number> = enterSession(sessionId, socket.id, sessions, users);
+		socket.on('enter_session', (sessionToEnter: ISessionEnter) => {
+			const {
+				sessionId,
+				password
+			} = sessionToEnter;
+
+			const canEnterSession: Array<number> = enterSession(sessionId, socket.id, password, sessions, users);
 
 			if (canEnterSession[0] === 1) {
 				sessions[canEnterSession[1]].party.push(users[canEnterSession[2]]);
