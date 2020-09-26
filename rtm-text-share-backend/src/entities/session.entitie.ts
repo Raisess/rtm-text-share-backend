@@ -1,5 +1,7 @@
 import sha256 from 'sha256';
+
 import { ISession } from '../interfaces/Session';
+import { IUser} from '../interfaces/User';
 
 export const createSession = (id: string, sessionId: string, session: ISession): ISession => {
 	const { password } = session;
@@ -16,8 +18,19 @@ export const createSession = (id: string, sessionId: string, session: ISession):
 	};
 }
 
-// TODO
-export const enterSession = (sessionId: string, userId: string): boolean => true;
+export const enterSession = (sessionId: string, userId: string, sessions: Array<ISession>, users: Array<IUser>): Array<number> => {
+	for (let i = 0; i < sessions.length; i++) {
+		if (sessionId === sessions[i].id) {
+			for (let j = 0; j < users.length; j++) {
+				if (userId === users[j].id) {
+					return [1, i, j];
+				}
+			}
+		}
+	}
+
+	return [0, -1, -1];
+};
 
 // TODO
 export const finishSession = (): void => {}

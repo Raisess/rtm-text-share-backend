@@ -4,7 +4,7 @@ import { IUser } from './interfaces/User';
 import { ISession } from './interfaces/Session';
 
 import { createUser } from './entities/user.entitie';
-import { createSession } from './entities/session.entitie';
+import { createSession, enterSession } from './entities/session.entitie';
 
 // data storage
 let users:    Array<IUser>    = [];
@@ -39,24 +39,20 @@ export const ws = (io: SocketIO.Server): void => {
 
 		// enter on session event
 		socket.on('enter_session', (sessionId: string) => {
-			for (let i = 0; i < sessions.length; i++) {
-				if (sessionId === sessions[i].id) {
-					for (let j = 0; j < users.length; j++) {
-						if (socket.id === users[j].id) {
-							sessions[i].party.push(users[j]);
-							users[j].onSession = sessionId;
+			const canEnterSession: Array<number> = enterSession(sessionId, socket.id, sessions, users);
 
-							socket.join(sessionId);
+			if (canEnterSession[0] === 1) {
+				sessions[canEnterSession[1]].party.push(users[canEnterSession[2]]);
+				users[canEnterSession[2]].onSession = sessionId;
 
-							return socket.emit('enter_session_response', {
-								log:       'enter session success',
-								success:   true,
-								sessionId: sessionId,
-								userId:    socket.id
-							});
-						}
-					}
-				}
+				socket.join(sessionId);
+
+				return socket.emit('enter_session_response', {
+					log:       'enter session success',
+					success:   true,
+					sessionId: sessionId,
+					userId:    socket.id
+				});
 			}
 
 			return socket.emit('enter_session_response', {
