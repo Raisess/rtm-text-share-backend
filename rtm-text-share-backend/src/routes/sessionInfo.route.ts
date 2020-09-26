@@ -35,7 +35,7 @@ sessionInfoRoute.get('/get/:id', (req: Request, res: Response) => {
 		const sessions: Array<ISession> = getSessions();
 
 		for (let session of sessions) {
-			if (session.id === req.params.id) {
+			if (session.id === req.params.id || session.shortId === req.params.id) {
 				return res.status(200).json({
 					requestedAt: new Date().toLocaleString(),
 					log:         'get session success',

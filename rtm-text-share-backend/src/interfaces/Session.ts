@@ -2,6 +2,7 @@ import { IUser } from './User';
 
 export interface ISession {
 	id:              string;
+	shortId:         string;
 	createdAt?:      string;
 	finishedAt?:     string;
 	online:          boolean;

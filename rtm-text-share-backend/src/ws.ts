@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { IUser } from './interfaces/User';
 import { ISession, ISessionEnter } from './interfaces/Session';
 
+import shortIdGen from './utils/shortIdGen';
+
 import { createUser } from './entities/user.entitie';
 import { createSession, enterSession } from './entities/session.entitie';
 
@@ -27,13 +29,17 @@ export const ws = (io: SocketIO.Server): void => {
 
 		// create session event
 		socket.on('create_session', (sessionData: ISession) => {
-			const sessionId: string   = uuidv4(); 
-			const session:   ISession = createSession(socket.id, sessionId, sessionData);
+			const sessionId: string   = uuidv4();
+			const shortId:   string   = shortIdGen();
+
+			const session:   ISession = createSession(socket.id, [sessionId, shortId], sessionData);
+			
 			sessions.push(session);
 
 			return socket.emit('create_session_response', {
 				log:        'session created',
-				sessionId:  sessionId
+				sessionId,
+				shortId
 			});
 		});
 
@@ -57,8 +63,8 @@ export const ws = (io: SocketIO.Server): void => {
 				return socket.emit('enter_session_response', {
 					log:       'enter session success',
 					success:   true,
-					sessionId: sessionId,
-					userId:    socket.id
+					userId:    socket.id,
+					sessionId
 				});
 			}
 

@@ -3,11 +3,12 @@ import sha256 from 'sha256';
 import { ISession } from '../interfaces/Session';
 import { IUser} from '../interfaces/User';
 
-export const createSession = (id: string, sessionId: string, session: ISession): ISession => {
+export const createSession = (id: string, ids: Array<string>, session: ISession): ISession => {
 	const { password } = session;
 
 	return {
-		id:             sessionId,
+		id:             ids[0],
+		shortId:        ids[1],
 		createdAt:      new Date().toLocaleString(),
 		finishedAt:     undefined,
 		online:         true,
@@ -21,7 +22,7 @@ export const createSession = (id: string, sessionId: string, session: ISession):
 
 export const enterSession = (sessionId: string, userId: string, password: string | undefined, sessions: Array<ISession>, users: Array<IUser>): Array<number> => {
 	for (let i = 0; i < sessions.length; i++) {
-		if (sessionId === sessions[i].id) {
+		if (sessionId === sessions[i].id || sessionId === sessions[i].shortId) {
 			for (let j = 0; j < users.length; j++) {
 				if (userId === users[j].id) {
 					if (sessions[i].password !== '' && sessions[i].password !== undefined) {
