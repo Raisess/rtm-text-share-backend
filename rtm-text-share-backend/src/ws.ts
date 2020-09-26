@@ -39,7 +39,30 @@ export const ws = (io: SocketIO.Server): void => {
 
 		// enter on session event
 		socket.on('enter_session', (sessionId: string) => {
+			for (let i = 0; i < sessions.length; i++) {
+				if (sessionId === sessions[i].id) {
+					for (let j = 0; j < users.length; j++) {
+						if (socket.id === users[j].id) {
+							sessions[i].party.push(users[j]);
+							users[j].onSession = sessionId;
 
+							socket.join(sessionId);
+
+							return socket.emit('enter_session_response', {
+								log:       'enter session success',
+								success:   true,
+								sessionId: sessionId,
+								userId:    socket.id
+							});
+						}
+					}
+				}
+			}
+
+			return socket.emit('enter_session_response', {
+				log:     'enter session fail',
+				success: false
+			});
 		});
 
 		// quit event
