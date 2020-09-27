@@ -5,7 +5,7 @@ import { ISession, ISessionEnter } from './interfaces/Session';
 
 import shortIdGen from './utils/shortIdGen';
 
-import { createUser } from './entities/user.entitie';
+import { createUser, deleteUser } from './entities/user.entitie';
 import { createSession, enterSession } from './entities/session.entitie';
 
 // data storage
@@ -76,10 +76,13 @@ export const ws = (io: SocketIO.Server): void => {
 
 		// quit event
 		socket.on('disconnect', () => {
-			// delete user from storage
-			for (let i = 0; i < users.length; i++) {
-				if (users[i]) {
-					if (socket.id === users[i].id) delete users[i];
+			const canDeleteUser: Array<number> = deleteUser(socket.id, users, sessions);
+
+			if (canDeleteUser[0] === 1) {
+				delete users[canDeleteUser[1]];
+
+				if (canDeleteUser[3] !== -1 && canDeleteUser[3] !== -1) {
+					delete sessions[canDeleteUser[2]].party[canDeleteUser[3]];
 				}
 			}
 
