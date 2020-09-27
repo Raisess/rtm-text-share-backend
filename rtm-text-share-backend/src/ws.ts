@@ -81,7 +81,7 @@ export const ws = (io: SocketIO.Server): void => {
 			if (canDeleteUser[0] === 1) {
 				delete users[canDeleteUser[1]];
 
-				if (canDeleteUser[3] !== -1 && canDeleteUser[3] !== -1) {
+				if (canDeleteUser[2] !== -1 && canDeleteUser[3] !== -1) {
 					delete sessions[canDeleteUser[2]].party[canDeleteUser[3]];
 				}
 			}
