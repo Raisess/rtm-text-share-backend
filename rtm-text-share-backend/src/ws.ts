@@ -3,10 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { IUser } from './interfaces/User';
 import { ISession, ISessionEnter, ISessionUpdate } from './interfaces/Session';
 
-import shortIdGen from './utils/shortIdGen';
-
 import { createUser, deleteUser } from './entities/user.entitie';
 import { createSession, enterSession, updateSession } from './entities/session.entitie';
+
+import shortIdGen from './utils/shortIdGen';
+import log from './utils/debugLog';
 
 // data storage
 let users:    Array<IUser>    = [];
@@ -14,12 +15,15 @@ let sessions: Array<ISession> = [];
 
 export const ws = (io: SocketIO.Server): void => {
 	io.on('connection', (socket: any) => {
-		console.log(socket.id, 'has been connected to server');
+		log(socket.id, 'has been connected to server');
 
 		// create user event
 		socket.on('create_user', (userData: IUser) => {
 			const user: IUser = createUser(socket.id, userData);
 			users.push(user);
+
+			log('new user!');
+			log(users);
 
 			return socket.emit('create_user_response', {
 				log:     'user created',
@@ -33,8 +37,10 @@ export const ws = (io: SocketIO.Server): void => {
 			const shortId:   string   = shortIdGen();
 
 			const session:   ISession = createSession(socket.id, [sessionId, shortId], sessionData);
-			
 			sessions.push(session);
+
+			log('new session!');
+			log(sessions);
 
 			return socket.emit('create_session_response', {
 				log:        'session created',
@@ -89,12 +95,14 @@ export const ws = (io: SocketIO.Server): void => {
 				// get the default session id
 				const id: string = sessions[toUpdate[1]].id;
 
-				sessions[toUpdate[1]].content = Buffer.from(newContent, 'utf8');
+				sessions[toUpdate[1]].content        = Buffer.from(newContent, 'utf8');
+				sessions[toUpdate[1]].lastUpdateTime = new Date().toLocaleString();
 
 				const newBuf: Buffer | undefined = sessions[toUpdate[1]].content;
 
-				console.log('buffer:', newBuf);
-				console.log('string:', (newBuf ? newBuf.toString() : ''));
+				log('updated session!');
+				log('buffer:', newBuf);
+				log('string:', (newBuf ? newBuf.toString() : ''));
 
 				return socket.broadcast.to(id).emit('update_session_response', {
 					log:     'update session success',
@@ -102,6 +110,11 @@ export const ws = (io: SocketIO.Server): void => {
 					content: newBuf
 				});
 			}
+
+			return socket.emit('update_session_response', {
+				log:     'update session fail',
+				success: false
+			});
 		});
 
 		// quit event
@@ -116,7 +129,7 @@ export const ws = (io: SocketIO.Server): void => {
 				}
 			}
 
-			console.log(socket.id, 'has been disconnected from server');
+			log(socket.id, 'has been disconnected from server');
 			return;
 		});
 	});
