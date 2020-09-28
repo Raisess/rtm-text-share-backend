@@ -8,7 +8,7 @@ export interface ISession {
 	online:          boolean;
 	createdBy:       string;
 	party:           Array<IUser>;
-	content?:        string;
+	content?:        Buffer;
 	password?:       string;
 	lastUpdateTime?: string;
 }
@@ -16,5 +16,10 @@ export interface ISession {
 export interface ISessionEnter {
 	sessionId: string;
 	password?: string;
+}
+
+export interface ISessionUpdate {
+	sessionId: string;
+	content?:  string;
 }
 

@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { IUser } from './interfaces/User';
-import { ISession, ISessionEnter } from './interfaces/Session';
+import { ISession, ISessionEnter, ISessionUpdate } from './interfaces/Session';
 
 import shortIdGen from './utils/shortIdGen';
 
 import { createUser, deleteUser } from './entities/user.entitie';
-import { createSession, enterSession } from './entities/session.entitie';
+import { createSession, enterSession, updateSession } from './entities/session.entitie';
 
 // data storage
 let users:    Array<IUser>    = [];
@@ -72,6 +72,36 @@ export const ws = (io: SocketIO.Server): void => {
 				log:     'enter session fail',
 				success: false
 			});
+		});
+
+		// update session event
+		socket.on('update_session', (session: ISessionUpdate) => {
+			const {
+				sessionId,
+				content
+			} = session;
+
+			const newContent: string = content ? content : '';
+
+			const toUpdate: Array<number> = updateSession(sessionId, sessions);
+
+			if (toUpdate[0] === 1) {
+				// get the default session id
+				const id: string = sessions[toUpdate[1]].id;
+
+				sessions[toUpdate[1]].content = Buffer.from(newContent, 'utf8');
+
+				const newBuf: Buffer | undefined = sessions[toUpdate[1]].content;
+
+				console.log('buffer:', newBuf);
+				console.log('string:', (newBuf ? newBuf.toString() : ''));
+
+				return socket.broadcast.to(id).emit('update_session_response', {
+					log:     'update session success',
+					success: true,
+					content: newBuf
+				});
+			}
 		});
 
 		// quit event

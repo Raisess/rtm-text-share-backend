@@ -14,7 +14,7 @@ export const createSession = (id: string, ids: Array<string>, session: ISession)
 		online:         true,
 		createdBy:      id,
 		party:          [],
-		content:        '',
+		content:        Buffer.from('', 'utf8'),
 		lastUpdateTime: '',
 		password:       password ? sha256(password + process.env.PASS_ALT) : ''
 	};
@@ -41,6 +41,16 @@ export const enterSession = (sessionId: string, userId: string, password: string
 
 	return [0, -1, -1];
 };
+
+export const updateSession = (idOrShortId: string, sessions: Array<ISession>): Array<number> => {
+	for (let i = 0; i < sessions.length; i++) {
+		if (idOrShortId === sessions[i].id || idOrShortId === sessions[i].shortId) {
+			return [1, i];
+		}
+	}
+
+	return [0, -1];
+}
 
 // TODO
 export const finishSession = (): void => {}
