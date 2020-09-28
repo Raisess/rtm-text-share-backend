@@ -24,7 +24,7 @@ export const deleteUser = (id: string, users: Array<IUser>, sessions: Array<ISes
 		if (users[i]) {
 			if (id === users[i].id) response[1] = i;
 
-			if (users[i].onSession !== '' && users[i].onSession !== undefined) {
+			if (users[i].onSession && users[i].onSession !== '') {
 				for (let j = 0; j < sessions.length; j++) {
 					for (let y = 0; y < sessions[j].party.length; y++) {
 						if (sessions[j].party[y] && id === sessions[j].party[y].id) {
