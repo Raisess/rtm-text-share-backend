@@ -9,7 +9,7 @@
     "compile": "tsc -p ./tsconfig.json",
     "clean": "rm -r ./build",
     "test": "jest ./__tests__",
-		"postinstal": "npm run compile"
+		"postinstall": "npm run compile"
   },
   "keywords": [],
   "author": "",
