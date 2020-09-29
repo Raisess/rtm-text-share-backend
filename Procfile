@@ -1,2 +1,2 @@
-web: node ./rtm-text-share-backend/build/index.js
+web: node ./build/index.js
 
