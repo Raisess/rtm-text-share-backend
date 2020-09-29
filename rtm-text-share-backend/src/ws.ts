@@ -13,7 +13,7 @@ import log from './utils/debugLog';
 let users:    Array<IUser>    = [];
 let sessions: Array<ISession> = [];
 
-export const ws = (io: SocketIO.Server): void => {
+export function ws(io: SocketIO.Server): void {
 	io.on('connection', (socket: any) => {
 		log(socket.id, 'has been connected to server');
 
@@ -136,6 +136,6 @@ export const ws = (io: SocketIO.Server): void => {
 }
 
 // get data functions
-export const getSessions = (): Array<ISession> => sessions;
-export const getUsers    = (): Array<IUser>    => users;
+export function getSessions(): Array<ISession> { return sessions }
+export function getUsers():    Array<IUser>    { return users }
 

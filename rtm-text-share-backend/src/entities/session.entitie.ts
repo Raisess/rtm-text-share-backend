@@ -3,7 +3,7 @@ import sha256 from 'sha256';
 import { ISession } from '../interfaces/Session';
 import { IUser} from '../interfaces/User';
 
-export const createSession = (id: string, ids: Array<string>, session: ISession): ISession => {
+export function createSession(id: string, ids: Array<string>, session: ISession): ISession {
 	const { password } = session;
 
 	return {
@@ -20,7 +20,7 @@ export const createSession = (id: string, ids: Array<string>, session: ISession)
 	};
 }
 
-export const enterSession = (sessionId: string, userId: string, password: string | undefined, sessions: Array<ISession>, users: Array<IUser>): Array<number> => {
+export function enterSession(sessionId: string, userId: string, password: string | undefined, sessions: Array<ISession>, users: Array<IUser>): Array<number> {
 	for (let i: number = 0; i < sessions.length; i++) {
 		if (sessionId === sessions[i].id || sessionId === sessions[i].shortId) {
 			for (let j: number = 0; j < users.length; j++) {
@@ -42,7 +42,7 @@ export const enterSession = (sessionId: string, userId: string, password: string
 	return [0, -1, -1];
 };
 
-export const updateSession = (idOrShortId: string, sessions: Array<ISession>): Array<number> => {
+export function updateSession(idOrShortId: string, sessions: Array<ISession>): Array<number> {
 	for (let i = 0; i < sessions.length; i++) {
 		if (idOrShortId === sessions[i].id || idOrShortId === sessions[i].shortId) {
 			return [1, i];
@@ -53,5 +53,5 @@ export const updateSession = (idOrShortId: string, sessions: Array<ISession>): A
 }
 
 // TODO
-export const finishSession = (): void => {}
+export function finishSession(): void {}
 

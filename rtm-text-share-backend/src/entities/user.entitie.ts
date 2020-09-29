@@ -1,7 +1,7 @@
 import { IUser } from '../interfaces/User';
 import { ISession } from '../interfaces/Session';
 
-export const createUser = (id: string, user: IUser): IUser => {
+export function createUser(id: string, user: IUser): IUser {
 	const {
 		username,
 		onSession
@@ -16,7 +16,7 @@ export const createUser = (id: string, user: IUser): IUser => {
 	};
 }
 
-export const deleteUser = (id: string, users: Array<IUser>, sessions: Array<ISession>): Array<number> => {
+export function deleteUser(id: string, users: Array<IUser>, sessions: Array<ISession>): Array<number> {
 	let response: Array<number> = [1, -1, -1, -1];
 
 	// delete user from storage and remove from any party

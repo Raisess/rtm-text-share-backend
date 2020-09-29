@@ -1,4 +1,4 @@
-export const validateMasterKey = (req: any, res: any, next: Function): boolean => {
+export function validateMasterKey(req: any, res: any, next: Function): boolean {
 	const key: string | undefined = req.query.key;
 
 	if (key === process.env.MASTER_KEY) {
