@@ -21,9 +21,9 @@ export const createSession = (id: string, ids: Array<string>, session: ISession)
 }
 
 export const enterSession = (sessionId: string, userId: string, password: string | undefined, sessions: Array<ISession>, users: Array<IUser>): Array<number> => {
-	for (let i = 0; i < sessions.length; i++) {
+	for (let i: number = 0; i < sessions.length; i++) {
 		if (sessionId === sessions[i].id || sessionId === sessions[i].shortId) {
-			for (let j = 0; j < users.length; j++) {
+			for (let j: number = 0; j < users.length; j++) {
 				if (userId === users[j].id) {
 					if (sessions[i].password && sessions[i].password !== '') {
 						if (sessions[i].password === (password ? sha256(password + process.env.PASS_ALT) : '')) {
