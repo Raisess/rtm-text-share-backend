@@ -13,6 +13,11 @@ import log from './utils/debugLog';
 let users:    Array<IUser>    = [];
 let sessions: Array<ISession> = [];
 
+// get data functions
+export function getSessions(): Array<ISession> { return sessions }
+export function getUsers():    Array<IUser>    { return users }
+
+// web socket server
 export default function ws(io: SocketIO.Server): void {
 	io.on('connection', (socket: any) => {
 		log(socket.id, 'has been connected to server');
@@ -134,8 +139,4 @@ export default function ws(io: SocketIO.Server): void {
 		});
 	});
 }
-
-// get data functions
-export function getSessions(): Array<ISession> { return sessions }
-export function getUsers():    Array<IUser>    { return users }
 
