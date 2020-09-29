@@ -3,7 +3,7 @@ import http, { Server, createServer } from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import { ws } from './ws';
+import ws from './ws';
 // config
 import { PORT } from './config';
 // routes

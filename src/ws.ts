@@ -13,7 +13,7 @@ import log from './utils/debugLog';
 let users:    Array<IUser>    = [];
 let sessions: Array<ISession> = [];
 
-export function ws(io: SocketIO.Server): void {
+export default function ws(io: SocketIO.Server): void {
 	io.on('connection', (socket: any) => {
 		log(socket.id, 'has been connected to server');
 

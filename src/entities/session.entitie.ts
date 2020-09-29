@@ -43,7 +43,7 @@ export function enterSession(sessionId: string, userId: string, password: string
 };
 
 export function updateSession(idOrShortId: string, sessions: Array<ISession>): Array<number> {
-	for (let i = 0; i < sessions.length; i++) {
+	for (let i: number = 0; i < sessions.length; i++) {
 		if (idOrShortId === sessions[i].id || idOrShortId === sessions[i].shortId) {
 			return [1, i];
 		}
