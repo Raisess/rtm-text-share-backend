@@ -24,15 +24,17 @@ export function enterSession(sessionId: string, userId: string, password: string
 	for (let i: number = 0; i < sessions.length; i++) {
 		if (sessionId === sessions[i].id || sessionId === sessions[i].shortId) {
 			for (let j: number = 0; j < users.length; j++) {
-				if (userId === users[j].id) {
-					if (sessions[i].password && sessions[i].password !== '') {
-						if (sessions[i].password === (password ? sha256(password + process.env.PASS_ALT) : '')) {
-							return [1, i, j];
+				if (users[j]) {
+					if (userId === users[j].id) {
+						if (sessions[i].password && sessions[i].password !== '') {
+							if (sessions[i].password === (password ? sha256(password + process.env.PASS_ALT) : '')) {
+								return [1, i, j];
+							} else {
+								return [0, -1, -1];
+							}
 						} else {
-							return [0, -1, -1];
+							return [1, i, j];
 						}
-					} else {
-						return [1, i, j];
 					}
 				}
 			}
@@ -44,8 +46,10 @@ export function enterSession(sessionId: string, userId: string, password: string
 
 export function updateSession(idOrShortId: string, sessions: Array<ISession>): Array<number> {
 	for (let i: number = 0; i < sessions.length; i++) {
-		if (idOrShortId === sessions[i].id || idOrShortId === sessions[i].shortId) {
-			return [1, i];
+		if (sessions[i]) {
+			if (idOrShortId === sessions[i].id || idOrShortId === sessions[i].shortId) {
+				return [1, i];
+			}
 		}
 	}
 
