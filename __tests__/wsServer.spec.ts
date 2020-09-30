@@ -12,7 +12,7 @@ interface ISession {
 	content?:  string;
 }
 
-const socket: SocketIOClient.Socket = io(getApiUri(false));
+const socket: SocketIOClient.Socket = io(getApiUri(true));
 
 describe('test web socket server', () => {
 	describe('user block', () => {
@@ -66,7 +66,7 @@ describe('test web socket server', () => {
 				content:   session.content
 			});
 
-			socket.on('update_session_response', (response: any) => expect(response.log).toBe('update session success'));
+			socket.on('update_session_response_to_sender', (response: any) => expect(response.log).toBe('update session success'));
 		});
 	});
 });

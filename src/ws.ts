@@ -109,11 +109,17 @@ export default function ws(io: SocketIO.Server): void {
 				log('buffer:', newBuf);
 				log('string:', (newBuf ? newBuf.toString() : ''));
 
-				return io.to(id).emit('update_session_response', {
-					log:     'update session success',
-					success: true,
-					content: newBuf
-				});
+				return (
+					socket.emit('update_session_response_to_sender', {
+						log:     'update session success',
+						success: true,
+					}),
+					socket.broadcast.to(id).emit('update_session_response', {
+						log:     'update session success',
+						success: true,
+						content: newBuf
+					})
+				);
 			}
 
 			return socket.emit('update_session_response', {
