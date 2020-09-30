@@ -9,8 +9,8 @@
     "compile": "tsc -p ./tsconfig.json",
     "compile-test": "tsc -p ./tsconfig.test.json",
     "clean": "rm -r ./build",
-		"clean-test": "rm -r ./tests_build",
-    "test": "jest ./tests_build",
+    "clean-test": "rm -r ./tests_build",
+    "test": "jest ./tests_build --detectOpenHandles",
     "postinstall": "npm run compile"
   },
   "keywords": [],
@@ -29,6 +29,7 @@
     "@types/cors": "^2.8.7",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.8",
+    "@types/jest": "^26.0.14",
     "@types/node": "^14.11.2",
     "@types/random-string": "0.0.28",
     "@types/sha256": "^0.2.0",
