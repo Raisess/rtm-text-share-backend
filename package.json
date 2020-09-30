@@ -7,14 +7,14 @@
     "start": "node ./build/index.js",
     "start-dev": "ts-node ./src/index.js",
     "compile": "tsc -p ./tsconfig.json",
-    "compile-tests": "tsc -p ./tsconfig.test.json",
+    "compile-test": "tsc -p ./tsconfig.test.json",
     "clean": "rm -r ./build ./tests_build",
     "test": "jest ./tests_build",
     "postinstall": "npm run compile"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
