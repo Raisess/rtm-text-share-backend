@@ -8,7 +8,8 @@
     "start-dev": "ts-node ./src/index.js",
     "compile": "tsc -p ./tsconfig.json",
     "compile-test": "tsc -p ./tsconfig.test.json",
-    "clean": "rm -r ./build ./tests_build",
+    "clean": "rm -r ./build",
+		"clean-test": "rm -r ./tests_build",
     "test": "jest ./tests_build",
     "postinstall": "npm run compile"
   },
